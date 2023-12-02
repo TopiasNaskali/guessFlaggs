@@ -58,7 +58,7 @@ export default function FlagsScreen() {
 
   const handleStartGame = () => {
     setScore(0);
-    setTimeLeft(10);
+    setTimeLeft(100);
     setGameState("playing");
   };
 
