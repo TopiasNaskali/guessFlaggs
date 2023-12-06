@@ -15,7 +15,7 @@ import { getUsers, saveScore } from "../Database";
 import GetFlags from "../hooks/GetFlags";
 import { getRandomElements } from "../hooks/GetRandomElements";
 import CountryDetailsScreen from "./CountryDetailsScreen";
-
+//comment
 const { OS } = Platform;
 
 export default function FlagsScreen() {
