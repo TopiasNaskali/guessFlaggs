@@ -1,6 +1,7 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View, ImageBackground } from "react-native";
+import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { Button } from '@rneui/themed';
 import { getUsers } from "../Database";
 
 const HomeScreen = () => {
@@ -14,7 +15,6 @@ const HomeScreen = () => {
       setUsername(users[0].name);
       setScore(users[0].score);
     } else {
-      // If there are no users, navigate to UserInputScreen
       navigation.navigate("User");
     }
   };
@@ -38,7 +38,22 @@ const HomeScreen = () => {
         <Text style={styles.text}>Welcome to the flags app</Text>
         {username && <Text style={styles.text}>Playing as: {username}</Text>}
         {username && <Text style={styles.text}>Best Score: {score}</Text>}
-        <Button title="Start Game" onPress={() => navigation.navigate("Flags")} />
+        <Button
+              title="Start Game"
+              onPress={() => navigation.navigate("Flags")}
+              buttonStyle={{
+                backgroundColor: 'black',
+                borderWidth: 2,
+                borderColor: 'white',
+                borderRadius: 30,
+              }}
+              containerStyle={{
+                width: 200,
+                marginHorizontal: 50,
+                marginVertical: 10,
+              }}
+              titleStyle={{ fontWeight: 'bold' }}
+            />
       </View>
     </ImageBackground>
   );
@@ -47,7 +62,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover', // or 'stretch' depending on your use case
+    resizeMode: 'cover', 
     
   },
   container: {
@@ -59,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
-    color: 'black', // adjust text color for better visibility
+    color: 'black', 
   },
 });
 

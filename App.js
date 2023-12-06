@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
 import CountryDetailsScreen from "./screens/CountryDetailsScreen";
@@ -22,8 +22,39 @@ export default function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="User" component={UserInputScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Flags" component={FlagsScreen}/>
-        <Stack.Screen name="CountryDetails" component={CountryDetailsScreen} />
+        <Stack.Screen
+          name="Flags"
+          component={FlagsScreen}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <View style={{ marginLeft: 10 }}>
+                <Button
+                  onPress={() => {
+                    // Your custom logic here
+                    Alert.alert(
+                      "Confirmation",
+                      "Are you sure you want to exit?",
+                      [
+                        {
+                          text: "Cancel",
+                          onPress: () => console.log("Cancel Pressed"),
+                          style: "cancel",
+                        },
+                        {
+                          text: "OK",
+                          onPress: () => navigation.goBack(),
+                        },
+                      ],
+                      { cancelable: false }
+                    );
+                  }}
+                  title="Back to Home"
+                  color="#007AFF" // You can customize the color
+                />
+              </View>
+            ),
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

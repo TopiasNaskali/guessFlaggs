@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   FlatList,
   Image,
   KeyboardAvoidingView,
@@ -9,13 +8,15 @@ import {
   Text,
   View,
   ImageBackground,
+  Alert,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Button } from '@rneui/themed';
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getUsers, saveScore } from "../Database";
 import GetFlags from "../hooks/GetFlags";
 import { getRandomElements } from "../hooks/GetRandomElements";
 import CountryDetailsScreen from "./CountryDetailsScreen";
-//comment
+
 const { OS } = Platform;
 
 export default function FlagsScreen() {
@@ -23,8 +24,9 @@ export default function FlagsScreen() {
   const { flags, fetchFlags, allFlags } = GetFlags();
   const [timeLeft, setTimeLeft] = useState(0);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(false);
   const [gameState, setGameState] = useState("notStarted");
-
+  
   useEffect(() => {
     const fetchInitialFlags = async () => {
       try {
@@ -64,11 +66,19 @@ export default function FlagsScreen() {
 
   const saveScoreToDatabase = async () => {
     const users = await getUsers();
-
+  
     if (users.length > 0) {
       const user = users[0];
       if (user.score < score) {
         await saveScore(user.name, score);
+        setHighScore(true);
+  
+        // Show alert for the new high score
+        Alert.alert(
+          "Congratulations!",
+          `You got a new high score: ${score}`,
+          [{ text: "OK", onPress: () => setHighScore(false) }]
+        );
       }
     } else {
       console.log("User was not found.");

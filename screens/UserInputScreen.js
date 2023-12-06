@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View, ImageBackground } from "react-native";
+import { Alert, StyleSheet, TextInput, View, ImageBackground } from "react-native";
 import { getUsers, saveUser } from "../Database";
+import { Button } from '@rneui/themed';
 
 const UserInputScreen = () => {
   const navigation = useNavigation();
@@ -50,7 +51,20 @@ const UserInputScreen = () => {
         value={username}
         onChangeText={(text) => setUsername(text)}
       />
-      <Button title="Save user" onPress={handleSaveUser} />
+      <Button
+              title="Save user" onPress={handleSaveUser}
+              buttonStyle={{ backgroundColor: 'rgba(127, 220, 103, 1)' }}
+              containerStyle={{
+                height: 40,
+                width: 200,
+                marginHorizontal: 50,
+                marginVertical: 10,
+              }}
+              titleStyle={{
+                color: 'black',
+                marginHorizontal: 20,
+              }}
+            />
     </View>
     </ImageBackground>
   );
